@@ -8,25 +8,25 @@
 
 import Foundation
 
-protocol NSNotificationObservable: RawRepresentable {
+public protocol NSNotificationObservable: RawRepresentable {
     var rawValue: String { get }
 }
 
-extension NSNotificationObservable {
-    func addObserver(observer: AnyObject, selector: Selector, object: AnyObject? = nil) {
+public extension NSNotificationObservable {
+    public func addObserver(observer: AnyObject, selector: Selector, object: AnyObject? = nil) {
         NSNotificationCenter.defaultCenter().addObserver(observer, selector: selector, name: self.rawValue, object: object)
     }
     
-    func addObserver(object: AnyObject? = nil, queue: NSOperationQueue? = nil, usingBlock block: NSNotification -> Void) -> NSObjectProtocol {
+    public func addObserver(object: AnyObject? = nil, queue: NSOperationQueue? = nil, usingBlock block: NSNotification -> Void) -> NSObjectProtocol {
         return NSNotificationCenter.defaultCenter().addObserverForName(self.rawValue, object: object, queue: queue, usingBlock: block)
     }
     
     
-    func post(object: AnyObject? = nil, userInfo: [NSObject: AnyObject]? = nil) {
+    public func post(object: AnyObject? = nil, userInfo: [NSObject: AnyObject]? = nil) {
         NSNotificationCenter.defaultCenter().postNotificationName(self.rawValue, object: object, userInfo: userInfo)
     }
     
-    func removeObserver(observer: AnyObject, object: AnyObject? = nil) {
+    public func removeObserver(observer: AnyObject, object: AnyObject? = nil) {
         NSNotificationCenter.defaultCenter().removeObserver(observer, name: self.rawValue, object: object)
     }
 }
